@@ -25,5 +25,9 @@ def find_delta_x(initial_x, sec):
     return initial_x * sec
 
 
-main(30, 30, 30)
+startingVelocity = float(input("What is the initial velocity of the projective?"))
+angle = float(input("What angle was the projectile launched at?"))
+height = float(input("What was the starting height of the object"))
+
+main(startingVelocity, angle, height)
 
