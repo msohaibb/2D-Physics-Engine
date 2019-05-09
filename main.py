@@ -3,12 +3,13 @@ from time import sleep
 
 g = -9.8
 
+
 def main(initial_v, theta, height, time_interval):
     initial_y = math.sin(math.radians(theta)) * initial_v
     initial_x = math.cos(math.radians(theta)) * initial_v
     seconds = 0
     y_displacement = height
-    while y_displacement > 0:
+    while y_displacement >= 0:
         y_displacement = find_delta_y(initial_y, seconds, height)
         x_displacement = find_delta_x(initial_x, seconds)
         print("At t = " + str(seconds) + " seconds, the x value is " + str(x_displacement) + ", and the y value is " + str(y_displacement) + ".")
