@@ -1,35 +1,17 @@
-import math
+from Projectile import Projectile
 from time import sleep
 
-g = -9.8
+startingVelocity = float(input("What is the initial velocity of the projective? "))
+angle = float(input("What angle was the projectile launched at? "))
+starting_height = float(input("What was the starting height of the object? "))
 
+myProjectile = Projectile(startingVelocity, angle, starting_height, 1)
 
-def main(initial_v, theta, height, time_interval):
-    initial_y = math.sin(math.radians(theta)) * initial_v
-    initial_x = math.cos(math.radians(theta)) * initial_v
-    seconds = 0
-    y_displacement = height
-    while y_displacement >= 0:
-        y_displacement = find_delta_y(initial_y, seconds, height)
-        x_displacement = find_delta_x(initial_x, seconds)
-        print("At t = " + str(seconds) + " seconds, the x value is " + str(x_displacement) + ", and the y value is " + str(y_displacement) + ".")
-        seconds += time_interval
-        sleep(time_interval)
-    zero = (-initial_y - math.sqrt(math.pow(initial_y, 2) - (4 * (g / 2) * height)))/g
-    print("The projectile hit the ground again at " + str(zero) + "seconds " + str(find_delta_x(initial_x, zero)) + "meters away from launch.")
-
-
-def find_delta_y(initial_y, sec, initial_height):
-    return initial_y * sec + (g / 2) * math.pow(sec, 2) + initial_height
-
-
-def find_delta_x(initial_x, sec):
-    return initial_x * sec
-
-
-startingVelocity = float(input("What is the initial velocity of the projective?"))
-angle = float(input("What angle was the projectile launched at?"))
-starting_height = float(input("What was the starting height of the object"))
-
-main(startingVelocity, angle, starting_height, 1)
-
+y_displacement = starting_height
+seconds = 0
+while myProjectile.secondly_motion(seconds)["y"] >= 0:
+    myProjectile.secondly_motion(seconds)
+    print("At t =", str(round(seconds, 2)), "seconds, x =", str(round(myProjectile.secondly_motion(seconds)["x"], 2)),"and y =", str(round(myProjectile.secondly_motion(seconds)["y"], 2)))
+    seconds += 1
+    sleep(1)
+print("The ball hit the ground again at x =", round(myProjectile.find_delta_x(myProjectile.find_zero()), 2), "after", myProjectile.find_zero(), "seconds.")
